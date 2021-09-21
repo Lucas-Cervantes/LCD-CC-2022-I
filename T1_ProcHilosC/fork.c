@@ -1,34 +1,23 @@
 #include <stdio.h>
-#include <stdlib.h>
 #include <sys/types.h>
 #include <unistd.h>
 
 int main(void){
 
-    int i = 1;
+    int fpid;
 
-    switch(fork()){
-        // codigo para el error
-        case -1 :
-            perror("Error al crear el proceso");
-            exit(-1);
-            break;
+    fpid = fork();
 
-        case 0 :
-        // codigo para el proceso hijo
-            while (i<=10){
-                sleep (1);
-                printf("\t Soy el proceso hijo: %d\n", i++);
-            }
-            break;
+    printf("ID del proceso: %d\n", fpid);
 
-        default :
-        // codigo para el padre
-            while (i<=10){
-                printf("Soy el proceso padre: %d\n", i++);
-                sleep(2);
-            }
-    }
+    if (fpid == 0)
+        // se crea el proceso hijo
+        printf("Proceso hijo \n" );
+    else
+        // ejecuta la continuación del proceso padre
+        printf("Proceso padre \n");
+
 
     return(0);
+
 }
